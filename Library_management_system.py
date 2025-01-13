@@ -1,49 +1,60 @@
-class library:
-    def _init_(self,listbooks):
-        self.books=listbooks
-    def Availablebooks(self):
-            print("Books present:")
-            for book in self.books:
-                print("  "+ book)
-    def borrowbook(self,bookName):   
+class Library:
+    def __init__(self, listbooks):  
+        self.books = listbooks
+
+    def AvailableBooks(self):
+        print("Books present:")
+        for book in self.books:
+            print("  " + book)
+
+    def BorrowBook(self, bookName):
         if bookName in self.books:
-            print(f"Book issued {bookName}.Return book within 30 days")
+            print(f"Book issued: {bookName}. Return the book within 30 days.")
             self.books.remove(bookName)
             return True
         else:
-            print("Book is unavailable")
+            print("Book is unavailable.")
             return False
-    def returnbook(self, bookName):
-         self.books.append(bookName)
-         print("Issued book returned!")
+
+    def ReturnBook(self, bookName):
+        self.books.append(bookName)
+        print("Issued book returned!")
+
+
 class Student:
-    def reqbook(self):
-        self.book=input("Enter name of book(borrow):-")
+    def RequestBook(self):
+        self.book = input("Enter the name of the book to borrow: ")
         return self.book
-    def returnbook(self):
-        self.book=input("Enter name of book(returnbook):-")
+
+    def ReturnBook(self):
+        self.book = input("Enter the name of the book to return: ")
         return self.book
-if _name== "main_":
-    clibrary=library(["Python","Java", "Php", "C++"])
-    student=Student()
-    while(True):
-        welcomemsg='''\n...Welcome to Library Management System...
+
+
+if __name__ == "__main__":  
+    clibrary = Library(["Python", "Java", "Php", "C++"])
+    student = Student()
+    while True:
+        welcomemsg = '''\n...Welcome to Library Management System...
         Please choose an option below:
-        1.All books
-        2.Request a book
-        3.Return a book
-        4.Exit
-        ....''' 
+        1. View all books
+        2. Request a book
+        3. Return a book
+        4. Exit
+        ....'''
         print(welcomemsg)
-        a=int(input("Enter a choice:"))
-        if a==1:
-           clibrary.Availablebooks()
-        elif a==2:
-           clibrary.borrowbook(student.reqbook())
-        elif a==3:
-           clibrary.returnbook(student.returnbook())
-        elif a==4:
-           print("....Thanks!!...")
-           exit()
-        else:
-           print("..Invalid choice!!.. ")
+        try:
+            a = int(input("Enter a choice: "))
+            if a == 1:
+                clibrary.AvailableBooks()
+            elif a == 2:
+                clibrary.BorrowBook(student.RequestBook())
+            elif a == 3:
+                clibrary.ReturnBook(student.ReturnBook())
+            elif a == 4:
+                print("....Thanks!!...")
+                exit()
+            else:
+                print("..Invalid choice!!..")
+        except ValueError:
+            print("Please enter a valid number.")
